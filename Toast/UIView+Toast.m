@@ -433,13 +433,13 @@ static const NSString * CSToastQueueKey             = @"CSToastQueueKey";
 - (CGPoint)cs_centerPointForPosition:(id)point withToast:(UIView *)toast {
     CSToastStyle *style = [CSToastManager sharedStyle];
     
-    UIEdgeInsets safeInsets = UIEdgeInsetsZero;
+    UIEdgeInsets safeInsets = UIEdgeInsetsMake(40, 0, 40, 0);
     if (@available(iOS 11.0, *)) {
-        safeInsets = self.safeAreaInsets;
+        safeInsets = UIEdgeInsetsMake(safeInsets.top + self.safeAreaInsets.top, safeInsets.left + self.safeAreaInsets.left, safeInsets.bottom + self.safeAreaInsets.bottom, safeInsets.right + self.safeAreaInsets.right);
     }
     
-    CGFloat topPadding = style.verticalPadding + safeInsets.top;
-    CGFloat bottomPadding = style.verticalPadding + safeInsets.bottom;
+    CGFloat topPadding = safeInsets.top;
+    CGFloat bottomPadding = safeInsets.bottom;
     
     if([point isKindOfClass:[NSString class]]) {
         if([point caseInsensitiveCompare:CSToastPositionTop] == NSOrderedSame) {
